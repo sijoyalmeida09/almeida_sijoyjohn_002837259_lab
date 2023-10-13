@@ -158,7 +158,30 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
         String routingNumber = txtRoutingNumber.getText();
         String accountNumber = txtAccountNumber.getText();
         String bankName = txtBankName.getText();
-        int balance = Integer.parseInt(txtBalance.getText()); 
+        String balanceText = txtBalance.getText();
+
+        if (!routingNumber.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Routing Number should contain only numbers.");
+            return;
+        }
+
+        if (!accountNumber.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Account Number should contain only numbers.");
+            return; 
+        }
+
+        if (!bankName.matches("^[a-zA-Z\\s]+$")) {
+            JOptionPane.showMessageDialog(null, "Bank Name should contain only alphabets.");
+            return; 
+        }
+
+        int balance;
+        try {
+            balance = Integer.parseInt(balanceText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Balance should be a number.");
+            return; 
+        } 
         
         Account account = accountDirectory.addAccount();
         account.setRoutingNumber(routingNumber);
